@@ -1,0 +1,2 @@
+# fukuoka_corona_linebot
+福岡県の感染者数を通知するLINEbot
