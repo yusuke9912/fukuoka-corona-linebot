@@ -1,5 +1,5 @@
 const channelToken = '';
-const spreadsheet = SpreadsheetApp.openById('');
+const spreadsheet = SpreadsheetApp.openById('1fq65Ef5Wd6WpTWqng8pXylxGzzG9043ch93M71CNZj0');
 const sheet = spreadsheet.getActiveSheet();
 
 const day_list = ["日","月","火","水","木","金","土"];
@@ -15,7 +15,6 @@ function broadcast() {
 sheet.getRange("C11").setValue(Math.random()); //スプレッドシートをリロード
 
 let matches = regExp.exec(sheet.getRange("B3").getValue());
-Logger.log(matches);
 let timestamp = matches[0]; //通知する日付
 let notified_date = sheet.getRange("C10").getValue(); //通知済み日付
 
@@ -23,15 +22,16 @@ if(timestamp != notified_date && timestamp != ""){ //送信済みでないこと
 //データの移動
 sheet.getRange("H4:K11").copyTo(sheet.getRange("H3:K10")); 
 sheet.getRange("H11").setValue(timestamp);
-sheet.getRange("I11").setValue(String(sheet.getRange("C4").getValue()).replace(/※[0-9]/,""));
-sheet.getRange("K11").setValue(sheet.getRange("C3").getValue());
+sheet.getRange("I11").setValue(sheet.getRange("C4").getValue().replace(/\(\d*\)/,"").replace(/※[0-9]/,""));
+sheet.getRange("K11").setValue(sheet.getRange("C3").getValue().replace(/\(\d*\)/,"").replace(/※[0-9]/,""));
 
 
 let today = new Date("2022/"+timestamp);
 let day = day_list[today.getDay()];
 let title = timestamp + "("+ day +")の感染者数" ;  
 
-let infected_no = String(sheet.getRange("C3").getValue()) //感染者数
+
+let infected_no = String(sheet.getRange("K11").getValue()); //感染者数
 let average7 = String(sheet.getRange("C7").getValue()); //直近1週間平均
 let average14 = String(sheet.getRange("C8").getValue()); //7日前1週間平均
 let diff = sheet.getRange("C9").getValue(); //先週比
