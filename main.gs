@@ -22,7 +22,6 @@ if(timestamp != notified_date && timestamp != ""){ //送信済みでないこと
 //データの移動
 sheet.getRange("H4:K11").copyTo(sheet.getRange("H3:K10")); 
 sheet.getRange("H11").setValue(timestamp);
-Logger.log(sheet.getRange("C4").getValue().replace(/\(\d*\)/,"").replace(/※[0-9]/,""));
 sheet.getRange("I11").setValue(sheet.getRange("C4").getValue().replace(/\(\d*\)/,"").replace(/※[0-9]/,""));
 sheet.getRange("K11").setValue(sheet.getRange("C3").getValue().replace(/\(\d*\)/,"").replace(/※[0-9]/,""));
 
@@ -30,6 +29,7 @@ sheet.getRange("K11").setValue(sheet.getRange("C3").getValue().replace(/\(\d*\)/
 let today = new Date("2022/"+timestamp);
 let day = day_list[today.getDay()];
 let title = timestamp + "("+ day +")の感染者数" ;  
+
 
 let infected_no = String(sheet.getRange("K11").getValue()); //感染者数
 let average7 = String(sheet.getRange("C7").getValue()); //直近1週間平均
