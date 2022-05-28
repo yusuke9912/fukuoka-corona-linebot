@@ -1,15 +1,11 @@
-const channelToken = '';
-const spreadsheet = SpreadsheetApp.openById('1fq65Ef5Wd6WpTWqng8pXylxGzzG9043ch93M71CNZj0');
+const channelToken = "Fd6ReUTr0C9FddEl7uNZlyHrU+hLfEOBb9J4EdASnnTvY1gNhv4N6oSn3canyttuR/E37lBmhKnGJ7XyBKWRCQqY/8ZppdY81P21bO8FJJVreMaVtbZnDagYe63wJq/Yx8ddUSmYjVOeFcvriA2NhwdB04t89/1O/w1cDnyilFU=";
+const spreadsheet = SpreadsheetApp.openById("1fq65Ef5Wd6WpTWqng8pXylxGzzG9043ch93M71CNZj0");
 const sheet = spreadsheet.getActiveSheet();
 
 const day_list = ["日","月","火","水","木","金","土"];
 const regExp = /(?<=（).*?(?=\))/; //()とその中身
 
-
-let site = "https://omatomesan.com/fukuoka-covid19/";
-
-
-//メッセージを送信
+//通知を送信
 function broadcast() {
 
 sheet.getRange("C11").setValue(Math.random()); //スプレッドシートをリロード
@@ -35,22 +31,22 @@ let infected_no = String(sheet.getRange("K11").getValue()); //感染者数
 let average7 = String(sheet.getRange("C7").getValue()); //直近1週間平均
 let average14 = String(sheet.getRange("C8").getValue()); //7日前1週間平均
 let diff = sheet.getRange("C9").getValue(); //先週比
-let compareAvg = diff <= 0 ? String(diff) : '+' + String(diff); //先週の1週間平均と比較(0より大きい場合は先頭に「+」をつける)
+let compareAvg = diff <= 0 ? String(diff) : "+" + String(diff); //先週の1週間平均と比較(0より大きい場合は先頭に「+」をつける)
 
 
-UrlFetchApp.fetch('https://api.line.me/v2/bot/message/broadcast', {
+UrlFetchApp.fetch("https://api.line.me/v2/bot/message/broadcast", {
 
-method: 'post',
+method: "post",
 headers: {
-  'Content-Type': 'application/json',
- 'Authorization': 'Bearer ' + channelToken,
+  "Content-Type": "application/json",
+ "Authorization": "Bearer " + channelToken,
 },
 payload: JSON.stringify({
   messages: [
     {
-       'type': 'flex',　
-    'altText': '今日の感染者数は' + infected_no + '人です',
-    'contents' : {
+       "type": "flex",　
+    "altText": timestamp + "("+ day +")の感染者数は" + infected_no + "人です",
+    "contents" : {
   "type": "bubble",
   "body": {
     "type": "box",
