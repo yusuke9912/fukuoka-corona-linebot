@@ -1,5 +1,5 @@
-const channelToken = "Fd6ReUTr0C9FddEl7uNZlyHrU+hLfEOBb9J4EdASnnTvY1gNhv4N6oSn3canyttuR/E37lBmhKnGJ7XyBKWRCQqY/8ZppdY81P21bO8FJJVreMaVtbZnDagYe63wJq/Yx8ddUSmYjVOeFcvriA2NhwdB04t89/1O/w1cDnyilFU=";
-const spreadsheet = SpreadsheetApp.openById("1fq65Ef5Wd6WpTWqng8pXylxGzzG9043ch93M71CNZj0");
+const channelToken = "";
+const spreadsheet = SpreadsheetApp.openById("");
 const sheet = spreadsheet.getActiveSheet();
 
 const day_list = ["日","月","火","水","木","金","土"];
@@ -18,9 +18,8 @@ if(timestamp != notified_date && timestamp != ""){ //送信済みでないこと
 //データの移動
 sheet.getRange("H4:K11").copyTo(sheet.getRange("H3:K10")); 
 sheet.getRange("H11").setValue(timestamp);
-Logger.log(String(sheet.getRange("C4").getValue()).replace(/\(\d*\)/,"").replace(/※[0-9]/,""));
-sheet.getRange("I11").setValue(String(sheet.getRange("C4").getValue()).replace(/\(\d*\)/,"").replace(/※[0-9]/,""));
-sheet.getRange("K11").setValue(String(sheet.getRange("C3").getValue()).replace(/\(\d*\)/,"").replace(/※[0-9]/,""));
+sheet.getRange("I11").setValue(String(sheet.getRange("C4").getValue()).replaceAll(",","").replaceAll(/\(\d*\)/g,"").replaceAll(/※[0-9]/g,""));
+sheet.getRange("K11").setValue(String(sheet.getRange("C3").getValue()).replaceAll(",","").replaceAll(/\(\d*\)/g,"").replaceAll(/※[0-9]/g,""));
 
 
 let today = new Date("2022/"+timestamp);
